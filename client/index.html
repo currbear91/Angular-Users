@@ -1,0 +1,72 @@
+<html>
+<head>
+  <title></title>
+  <script src='./angular/angular.js'></script>
+  <script type='text/javascript'>
+    var myApp = angular.module('myApp', []);
+    myApp.controller('userController', ['$scope', function ($scope){
+      $scope.users = [];
+      $scope.newUser = {};
+      $scope.addUser = function(){
+        $scope.users.push($scope.newUser);
+        console.log($scope.newUser)
+        $scope.newUser = {};
+      }
+
+      $scope.removeUser = function(item){
+        var index = $scope.users.indexOf(item);
+        $scope.users.splice(index,1);
+        
+      }
+
+
+
+
+    }]);
+
+  </script>
+</head>
+<body ng-app='myApp'>
+    <div ng-controller='userController'>
+      <form ng-submit="addUser()" >
+        <table>
+          <tr>
+            <td><p>First Name:</p></td>
+            <td><input ng-model="newUser.firstname" type="text" name="fname" placeholder="First Name"></td>
+          </tr>
+          <tr>
+            <td><p>Last Name:</p></td>
+            <td><input ng-model="newUser.lastname" type="text" name="lname" placeholder="Last Name"></td>
+          </tr>
+          <tr>
+            <td><p>Favorite Language:</p></td>
+            <td><input ng-model="newUser.favlanguage" type="text" name="language" placeholder="Favorite Language"></td>
+          </tr>
+          <tr>
+            <td><input type="submit" name="submit" value="Add User"></td>
+          </tr>
+        </table>
+      </form> 
+    
+
+      <table>
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Favorite Language</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat = "user in users" >
+            <td>{{ user.firstname }}</td>
+            <td>{{ user.lastname }}</td>
+            <td>{{ user.favlanguage }}</td>
+            <td><a href="#"><button ng-click = "removeUser(user)">Delete User</button></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</body>
+</html>
